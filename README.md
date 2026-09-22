@@ -62,3 +62,11 @@ Le kernel sera :
 ```text
 Python (abelio-test-tech)
 ```
+
+## 2. Approche méthodologique du projet
+
+Après étude de l'énoncé (non inclus dans le repo pour des raisons de confidentialité), je détaille ici les étapes majeures de ma réflexion. Le fichier *synthèse.pdf* aborde, pour chaque étape, les choix et leur justification ainsi que les ressources utilisées pour y arriver (docs, Assistant IA, etc.).
+
+Pour chaque étape est fourni un notebook *.pynb* qui pourra être exécuté pour la reproductibilité. Les parties du code re-adaptées d'anciers codes de mes travaux INRAE ou à partir de prototypes de code générés par un LLM seront seront explicités directement dans les commentaires du code. 
+
+
