@@ -71,5 +71,14 @@ Pour chaque étape est fourni, si nécessaire, un notebook *.pynb* qui pourra ê
 
 ### 2.0. Analyse du besoin
 
-On cherche à estimer la Masse Sèche (MS) de maïs ensilage à partir de données météo, et imagerie satellite.
+On cherche à estimer la Masse Sèche (MS) de maïs ensilage à partir de données météo, et imagerie satellite. L'énoncé propose un modèle déterministe dit de Maizy qui se base sur le cumul de degrés-jours (accumulation de la chaleur). Outre le fait que ce modèle n'exploite pas les données satelittaires, des limites sont relevées sur l'utilisation de la température comme seul facteur de prédiction (détaillées sur le fichier de synthèse).
 
+On proposera donc un modèle intégrant les autres facteurs disponibles (densité de la végétation, précipitations, ensoleillement, humidité, etc.) à la varaible *cumul de degrés-jours* utilisée dans la formule de Maizy (température).
+
+Cependant, il faudra qu'on soit attentif sur le nombre de variables (features) qu'on choisit, les données fournies pour entraîner notre modèle présentent 200 échantillons seulement, utiliser toutes les variables sans réduction de dimensionalité peut contraindre la généralisabilité du modèle (curse of dimensionality, overfitting des modèles ML simples). 
+
+On utilisera le modèle fourni (Maizy) comme baseline pour vérifier si notre proposition améliore la prédiction de la MS.
+
+### 2.1 Pré-traitement des données
+
+On charge les données brutes, on les analysent, on détecte les données manquantes,
