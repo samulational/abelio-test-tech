@@ -81,4 +81,6 @@ On utilisera le modèle fourni (Maizy) comme baseline pour vérifier si notre pr
 
 ### 2.1 Pré-traitement des données
 
-On charge les données brutes, on les analysent, on détecte les données manquantes,
+On charge les données brutes, on les analyse, on détecte les données manquantes, on nettoie, on normalise, etc.
+
+> **Notebook:** data_preprocessing.pynb
