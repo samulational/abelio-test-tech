@@ -9,6 +9,13 @@ Mini-projet Data Science pour @Abelio
 - Git 
 - Jupyter Notebook ou JupyterLab
 
+### Clonage du projet git 
+
+```bash
+git clone https://github.com/samulational/abelio-test-tech.git
+cd abelio-test-tech
+```
+
 ### Dataset
 
 Pour des questions de confidentialité, les données utilisées **ne sont pas inculses dans le repository git**. 
@@ -44,7 +51,7 @@ pip install -r requirements.txt
 
 ### Kernel Jupyter
 
-Le Kernel Jupyter représente l'environnement commun entre les notebooks. 
+Le Kernel Jupyter utilisé dans ce projet représente l'environnement commun entre les notebooks, créer un kernel du même nom, il englobera toutes les dépendences installées récemment.
 
 ```bash
 python -m ipykernel install --user --name=abelio-test-tech --display-name "Python (abelio-test-tech)"
