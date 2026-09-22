@@ -5,7 +5,7 @@ Mini-projet Data Science pour @Abelio
 
 ### Prérequis
 
-- Python 3.10
+- Python 3.9+
 - Git 
 - Jupyter Notebook ou JupyterLab
 
