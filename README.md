@@ -3,20 +3,20 @@ Mini-projet Data Science pour @Abelio
 
 ## 1. Paramétrage
 
-### Prérequis
+### 1.0. Prérequis
 
 - Python 3.9+
 - Git 
 - Jupyter Notebook ou JupyterLab
 
-### Clonage du projet git 
+### 1.1. Clonage du projet git 
 
 ```bash
 git clone https://github.com/samulational/abelio-test-tech.git
 cd abelio-test-tech
 ```
 
-### Dataset
+### 1.2. Dataset
 
 Pour des questions de confidentialité, les données utilisées **ne sont pas inculses dans le repository git**. 
 
@@ -25,7 +25,7 @@ Avant de lancer les notebooks, créer un dossier *data/* à la racine du projet,
 
 > **Important:** Le dossier `data/` sera ignoré par git, si vous souhaitez changer ça, supprimer la ligne *data/* du fichier *.gitignore*.
 
-### Environnement Python
+### 1.3. Environnement Python
 
 Vous pouvez créer un environnement virtuel pour y installer les dépendences requises dans le fichier *requirements.txt*.
 
@@ -49,7 +49,7 @@ Installation des dépendences:
 pip install -r requirements.txt
 ```
 
-### Kernel Jupyter
+### 1.4. Kernel Jupyter
 
 Le Kernel Jupyter utilisé dans ce projet représente l'environnement commun entre les notebooks, créer un kernel du même nom, il englobera toutes les dépendences installées récemment.
 
@@ -67,6 +67,9 @@ Python (abelio-test-tech)
 
 Après étude de l'énoncé (non inclus dans le repo pour des raisons de confidentialité), je détaille ici les étapes majeures de ma réflexion. Le fichier *synthèse.pdf* aborde, pour chaque étape, les choix et leur justification ainsi que les ressources utilisées pour y arriver (docs, Assistant IA, etc.).
 
-Pour chaque étape est fourni un notebook *.pynb* qui pourra être exécuté pour la reproductibilité. Les parties du code re-adaptées d'anciers codes de mes travaux INRAE ou à partir de prototypes de code générés par un LLM seront seront explicités directement dans les commentaires du code. 
+Pour chaque étape est fourni, si nécessaire, un notebook *.pynb* qui pourra être exécuté pour la reproductibilité. Les parties du code re-adaptées d'anciers codes de mes travaux INRAE ou à partir de prototypes de code générés par un LLM seront explicités directement dans les commentaires du code. 
 
+### 2.0. Analyse du besoin
+
+On cherche à estimer la Masse Sèche (MS) de maïs ensilage à partir de données météo, et imagerie satellite.
 
