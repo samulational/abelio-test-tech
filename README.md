@@ -93,6 +93,8 @@ On effectue la transformation en données numériques :
 - Des données satellites : En calculant une valeur qui traduit la densité de la végétation (indice de végétation).
 - Des données temporelles : En transformant la date en valeur numérique traduisant le jour de l'année de 1 à 366.
 
+Pour les données manquantes, vu qu'on utilise la variable de précocité uniquement pour trouver les facteurs a et b dans la formule de Maizy en les utilisants comme des flags, on attribuera aux précocités inconnues la valeur *-1* pour utiliser une moyenne des facteurs et éviter debruiter les valeurs de Maizy calculées.  
+
 > **Code:** Le notebook *data_preprocessing.ipynb* contient le code concernant cette partie.
 
 ### 2.2 EDA : Analyse exploratoire des données
