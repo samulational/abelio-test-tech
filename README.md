@@ -81,6 +81,8 @@ On utilisera le modèle fourni (Maizy) comme baseline pour vérifier si notre pr
 
 ### 2.1 Préparation des données
 
+> **Code:** Le notebook *data_preprocessing.ipynb* contient le code concernant cette partie.
+
 Les données utilisées sont de 4 types : numériques, catégorielles (récolte précoce, semi-précoce, etc.), temporelles (dates) et multi-spectrales (images satelittes).
 
 Pour pouvoir agréger les variables en features et réduire la dimensionalité, il faudrait convertir les types non numériques en données numériques, ceci permettra de créer des features qui agrégent 2 ou plus de nos variables de base. plus le nombre de features est petit et représentatif des autres features (qu'ils les prennent en compte dans leur formule), plus ça nous permettra d'entraîner un modèle simple, évitant ainsi le overfitting.
@@ -93,8 +95,8 @@ On effectue la transformation en données numériques :
 - Des données satellites : En calculant une valeur qui traduit la densité de la végétation (indice de végétation).
 - Des données temporelles : En transformant la date en valeur numérique traduisant le jour de l'année de 1 à 366.
 
-Pour les données manquantes, vu qu'on utilise la variable de précocité uniquement pour trouver les facteurs a et b dans la formule de Maizy en les utilisants comme des flags, on attribuera aux précocités inconnues la valeur *-1* pour utiliser une moyenne des facteurs et éviter debruiter les valeurs de Maizy calculées.  
-
-> **Code:** Le notebook *data_preprocessing.ipynb* contient le code concernant cette partie.
+Pour la gestion des données manquantes, vu qu'on utilisera la variable de précocité uniquement pour trouver les facteurs a et b dans la formule de Maizy en les utilisants comme des flags, on attribuera aux précocités inconnues la valeur *-1* pour utiliser une moyenne des facteurs et éviter debruiter les valeurs de Maizy calculées.  
 
 ### 2.2 EDA : Analyse exploratoire des données
+
+> **Code:** Le notebook *eda.ipynb* contient le code concernant cette partie.
