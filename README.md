@@ -101,20 +101,16 @@ Pour la gestion des données manquantes, vu qu'on utilisera la variable de préc
 
 > **Code:** Le notebook *eda.ipynb* contient le code concernant cette partie.
 
-### 2.3 Feature Selection & Scaling
+### 2.3 Feature Engineering
 
 > **Code:** Le notebook *feature_engineering.ipynb* contient le code concernant cette partie.
 
-### 2.4 Feature Engineering
-
-> **Code:** Le notebook *feature_engineering.ipynb* contient le code concernant cette partie.
-
-### 2.5 Model Selection & Training
+### 2.4 Model Training
 
 > **Code:** Le notebook *model_training.ipynb* contient le code concernant cette partie.
 
-### 2.6 Model Evaluation
+### 2.5 Model Evaluation
 
 > **Code:** Le notebook *model_evaluation.ipynb* contient le code concernant cette partie.
 
-### 2.7 Synthèse & Conclusions
+### 2.6 Synthèse & Conclusions
