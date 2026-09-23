@@ -67,7 +67,7 @@ Python (abelio-test-tech)
 
 Après étude de l'énoncé (non inclus dans le repo pour des raisons de confidentialité), je détaille ici les étapes majeures de ma réflexion. Le fichier *synthèse.pdf* aborde, pour chaque étape, les choix et leur justification ainsi que les ressources utilisées pour y arriver (docs, Assistant IA, etc.).
 
-Pour chaque étape est fourni, si nécessaire, un notebook *.pynb* qui pourra être exécuté pour la reproductibilité. Les parties du code re-adaptées d'anciers codes de mes travaux INRAE ou à partir de prototypes de code générés par un LLM seront explicités directement dans les commentaires du code. 
+Pour chaque étape est fourni, si nécessaire, un notebook *.ipynb* qui pourra être exécuté pour la reproductibilité. Les parties du code re-adaptées d'anciers codes de mes travaux INRAE ou à partir de prototypes de code générés par un LLM seront explicités directement dans les commentaires du code. 
 
 ### 2.0. Analyse du besoin
 
@@ -75,12 +75,15 @@ On cherche à estimer la Masse Sèche (MS) de maïs ensilage à partir de donné
 
 On proposera donc un modèle intégrant les autres facteurs disponibles (densité de la végétation, précipitations, ensoleillement, humidité, etc.) à la varaible *cumul de degrés-jours* utilisée dans la formule de Maizy (température).
 
-Cependant, il faudra qu'on soit attentif sur le nombre de variables (features) qu'on choisit, les données fournies pour entraîner notre modèle présentent 200 échantillons seulement, utiliser toutes les variables sans réduction de dimensionalité peut contraindre la généralisabilité du modèle (curse of dimensionality, overfitting des modèles ML simples). 
+Cependant, il faudra qu'on soit attentif sur le nombre de variables (features) qu'on choisit, les données fournies pour entraîner notre modèle ne présente que 200 échantillons venant du même bassin de plantation, utiliser toutes les variables sans réduction de dimensionalité peut contraindre la généralisabilité du modèle (curse of dimensionality, overfitting des modèles ML simples) car beaucoup de dimensions et pas assez de diversité des échantillons (variance petite). 
 
 On utilisera le modèle fourni (Maizy) comme baseline pour vérifier si notre proposition améliore la prédiction de la MS.
 
-### 2.1 Pré-traitement des données
+### 2.1 Préparation des données
 
-On charge les données brutes, on les analyse, on détecte les données manquantes, on nettoie, on normalise, etc.
+Les données utilisées sont de 4 types : numériques, catégorielles (récolte précoce, semi-précoce, etc.), temporelles (dates) et multi-spectrales (images satelittes).
 
-> **Notebook:** data_preprocessing.pynb
+Pour pouvoir agréger les variables en features et réduire la dimensionalité, il faudrait convertir les types non numériques en données numériques, ceci permettra de créer des features qui agrégent 2 ou plus de nos variables de base. plus le nombre de features est petit et représentatif des autres features (qu'ils les prennent en compte dans leur formule), plus ça nous permettra d'entraîner un modèle simple, évitant ainsi le overfitting.
+
+
+> **Important:** *\mesures_ms* : La variable catégorielle précocité contient des champs vides "UNKNOWN" qu'il faudrait combler en fonction de l'usage qu'on décide de faire de la variable dans notre modèle.
