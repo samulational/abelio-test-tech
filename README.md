@@ -83,11 +83,19 @@ On utilisera le modèle fourni (Maizy) comme baseline pour vérifier si notre pr
 
 > **Code:** Le notebook *data_preprocessing.ipynb* contient le code concernant cette partie.
 
+On y fait :
+
+- Suppression des doublons et des données corrompues si elles existent.
+- Catégorisation des types de données.
+- Détection et gestion des données manquantes.
+- Transformation des données (conversions, encodings, etc.)
+- Split Train/Test.
+
 Les données utilisées sont de 4 types : numériques, catégorielles (récolte précoce, semi-précoce, etc.), temporelles (dates) et multi-spectrales (images satelittes).
 
-Pour pouvoir agréger les variables en features et réduire la dimensionalité, il faudrait convertir les types non numériques en données numériques, ceci permettra de créer des features qui agrégent 2 ou plus de nos variables de base. plus le nombre de features est petit et représentatif des autres features (qu'ils les prennent en compte dans leur formule), plus ça nous permettra d'entraîner un modèle simple, évitant ainsi le overfitting.
-
 > **Important:** La variable catégorielle précocité contient des champs vides "UNKNOWN" qu'il faudrait combler en fonction de l'usage qu'on décide de faire de la variable dans notre modèle.
+
+Pour pouvoir aggréger les variables en features et réduire la dimensionalité, il faudrait convertir les types non numériques en données numériques, ceci permettra de créer des features qui aggrégent 2 ou plus de nos variables de base. plus le nombre de features est petit et représentatif des autres features (qu'ils les prennent en compte dans leur formule), plus ça nous permettra d'entraîner un modèle simple, évitant ainsi le overfitting.
 
 On effectue la transformation en données numériques :
 
@@ -95,22 +103,47 @@ On effectue la transformation en données numériques :
 - Des données satellites : En calculant une valeur qui traduit la densité de la végétation (indice de végétation).
 - Des données temporelles : En transformant la date en valeur numérique traduisant le jour de l'année de 1 à 366.
 
-Pour la gestion des données manquantes, vu qu'on utilisera la variable de précocité uniquement pour trouver les facteurs a et b dans la formule de Maizy en les utilisants comme des flags, on attribuera aux précocités inconnues la valeur *-1* pour utiliser une moyenne des facteurs et éviter debruiter les valeurs de Maizy calculées.  
+Pour la gestion des données manquantes, vu qu'on utilisera la variable de précocité uniquement pour trouver les facteurs a et b dans la formule de Maizy en les utilisants comme des flags, on attribuera aux précocités inconnues la valeur *-1* pour utiliser une moyenne des facteurs et éviter debruiter les valeurs de Maizy calculées.
 
-### 2.2 EDA : Analyse exploratoire des données
+On divise Train/Test le dataset sur le ratio 4:1.
+
+### 2.2 EDA : Analyse exploratoire des données d'entraînement
 
 > **Code:** Le notebook *eda.ipynb* contient le code concernant cette partie.
+
+On y fait des plots pour:
+ 
+- Visualiser les distributions des nos données.
+- Trouver les outliers et les traiter
+- Trouver les éventuelles corrélations entre les variables.
 
 ### 2.3 Feature Engineering
 
 > **Code:** Le notebook *feature_engineering.ipynb* contient le code concernant cette partie.
 
+On y fait :
+
+- Le choix des variables pertinentes.
+- Leur normalisation/standardisation.
+- La réduiction de dimensionalité.
+
 ### 2.4 Model Training
 
 > **Code:** Le notebook *model_training.ipynb* contient le code concernant cette partie.
 
+On y fait :
+
+- Le choix du modèle ML à entraîner.
+- L'entraînement du modèle ML.
+- Le tuning de ses hyperparamètres.
+
 ### 2.5 Model Evaluation
 
 > **Code:** Le notebook *model_evaluation.ipynb* contient le code concernant cette partie.
+
+On y fait :
+
+- L'évaluation du modèle sur les données de Test.
+- Comparaison des performances avec un baseline.
 
 ### 2.6 Synthèse & Conclusions
