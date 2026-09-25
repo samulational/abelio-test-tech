@@ -1,7 +1,13 @@
 jupyter
 ipykernel
+pyzmq
+rpds-py
 pandas
+openpyxl
 numpy
+Pillow
 matplotlib
 seaborn
 scikit-learn
+zarr >= 3
+xarray

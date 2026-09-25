@@ -5,7 +5,7 @@ Mini-projet Data Science pour @Abelio
 
 ### 1.0. Prérequis
 
-- Python 3.9+
+- Python 3.13+
 - Git 
 - Jupyter Notebook ou JupyterLab
 
@@ -63,87 +63,3 @@ Le kernel sera :
 Python (abelio-test-tech)
 ```
 
-## 2. Approche méthodologique du projet
-
-Après étude de l'énoncé (non inclus dans le repo pour des raisons de confidentialité), je détaille ici les étapes majeures de ma réflexion. Le fichier *synthèse.pdf* aborde, pour chaque étape, les choix et leur justification ainsi que les ressources utilisées pour y arriver (docs, Assistant IA, etc.).
-
-Pour chaque étape est fourni, si nécessaire, un notebook *.ipynb* qui pourra être exécuté pour la reproductibilité. Les parties du code re-adaptées d'anciers codes de mes travaux INRAE ou à partir de prototypes de code générés par un LLM seront explicités directement dans les commentaires du code. 
-
-### 2.0. Analyse du besoin
-
-On cherche à estimer la Masse Sèche (MS) de maïs ensilage à partir de données météo, et imagerie satellite. L'énoncé propose un modèle déterministe dit de Maizy qui se base sur le cumul de degrés-jours (accumulation de la chaleur). Outre le fait que ce modèle n'exploite pas les données satelittaires, des limites sont relevées sur l'utilisation de la température comme seul facteur de prédiction (détaillées sur le fichier de synthèse).
-
-On proposera donc un modèle intégrant les autres facteurs disponibles (densité de la végétation, précipitations, ensoleillement, humidité, etc.) à la varaible *cumul de degrés-jours* utilisée dans la formule de Maizy (température).
-
-Cependant, il faudra qu'on soit attentif sur le nombre de variables (features) qu'on choisit, les données fournies pour entraîner notre modèle présente moins de 200 échantillons venant du même bassin de plantation, utiliser toutes les variables sans réduction de dimensionalité peut contraindre la généralisabilité du modèle (curse of dimensionality, overfitting des modèles ML simples) car beaucoup de dimensions et pas assez de diversité des échantillons (variance petite). 
-
-On utilisera le modèle fourni (Maizy) comme baseline pour vérifier si notre proposition améliore la prédiction de la MS.
-
-### 2.1 Préparation des données
-
-> **Code:** Le notebook *data_preprocessing.ipynb* contient le code concernant cette partie.
-
-On y fait :
-
-- Suppression des doublons et des données corrompues si elles existent.
-- Catégorisation des types de données.
-- Détection et gestion des données manquantes.
-- Transformation des données (conversions, encodings, etc.)
-- Split Train/Test.
-
-Les données utilisées sont de 4 types : numériques, catégorielles (récolte précoce, semi-précoce, etc.), temporelles (dates) et multi-spectrales (images satelittes).
-
-> **Important:** La variable catégorielle précocité contient des champs vides "UNKNOWN" qu'il faudrait combler en fonction de l'usage qu'on décide de faire de la variable dans notre modèle.
-
-Pour pouvoir aggréger les variables en features et réduire la dimensionalité, il faudrait convertir les types non numériques en données numériques, ceci permettra de créer des features qui aggrégent 2 ou plus de nos variables de base. plus le nombre de features est petit et représentatif des autres features (qu'ils les prennent en compte dans leur formule), plus ça nous permettra d'entraîner un modèle simple, évitant ainsi le overfitting.
-
-On effectue la transformation en données numériques :
-
-- Des données catégorielles : En attribuant à chaque précocité un entier selon son degré de "précoce" à "tardif".
-- Des données satellites : En calculant une valeur qui traduit la densité de la végétation (indice de végétation).
-- Des données temporelles : En transformant la date en valeur numérique traduisant le jour de l'année de 1 à 366.
-
-Pour la gestion des données manquantes, vu qu'on utilisera la variable de précocité uniquement pour trouver les facteurs a et b dans la formule de Maizy en les utilisants comme des flags, on attribuera aux précocités inconnues la valeur *-1* pour utiliser une moyenne des facteurs et éviter debruiter les valeurs de Maizy calculées.
-
-On divise Train/Test le dataset sur le ratio 4:1.
-
-### 2.2 EDA : Analyse exploratoire des données d'entraînement
-
-> **Code:** Le notebook *eda.ipynb* contient le code concernant cette partie.
-
-On y fait des plots pour:
- 
-- Visualiser les distributions des nos données.
-- Trouver les outliers et les traiter
-- Trouver les éventuelles corrélations entre les variables.
-
-### 2.3 Feature Engineering
-
-> **Code:** Le notebook *feature_engineering.ipynb* contient le code concernant cette partie.
-
-On y fait :
-
-- Le choix des variables pertinentes.
-- Leur normalisation/standardisation.
-- La réduiction de dimensionalité.
-
-### 2.4 Model Training
-
-> **Code:** Le notebook *model_training.ipynb* contient le code concernant cette partie.
-
-On y fait :
-
-- Le choix du modèle ML à entraîner.
-- L'entraînement du modèle ML.
-- Le tuning de ses hyperparamètres.
-
-### 2.5 Model Evaluation
-
-> **Code:** Le notebook *model_evaluation.ipynb* contient le code concernant cette partie.
-
-On y fait :
-
-- L'évaluation du modèle sur les données de Test.
-- Comparaison des performances avec un baseline.
-
-### 2.6 Synthèse & Conclusions
