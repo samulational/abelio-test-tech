@@ -2,6 +2,35 @@ import pandas as pd
 import numpy as np
 from CubeZarrUtils import CubeZarr
 
+def NDVI(ligne_mesure, dict_cubes):
+    # Récupération du frame satellite associé à la parcelle
+    cube = dict_cubes[ligne_mesure['parcel_id']]
+    df_cube = cube.dataframe
+
+    # Récupération des informations importantes
+    latitude = ligne_mesure['lat']
+    longitude = ligne_mesure['lon']
+    date_mesure = ligne_mesure['date']
+
+    # Trouver l'image satelitte la plus proche de la date de mesure de moins de 10 jours
+    df_date_proche = df_cube[
+    (df_cube["date"] <= date_mesure) &
+    (df_cube["date"] >= date_mesure - pd.Timedelta(days=30)) &
+    (df_cube["B04"].notna()) &
+    (df_cube["B08"].notna())
+]
+
+    # Si aucune image satelitte ne correspond au critères, information inexploitable à traiter apres
+    if df_date_proche.empty:
+        return -1
+
+    image_b04 = df_date_proche["B04"].iloc[-1]
+    image_b08 = df_date_proche["B08"].iloc[-1]
+    pixel_b04 = image_b04.sel(x=latitude, y=longitude, method="nearest") 
+    pixel_b08 = image_b08.sel(x=latitude, y=longitude, method="nearest")
+
+    return (pixel_b08.values - pixel_b04.values)/(pixel_b08.values + pixel_b04.values)
+    
 def DJc(ligne_mesure, dict_meteo):
     
     #Récupération du frame météo associé à la parcelle
@@ -37,54 +66,6 @@ def ETPc(ligne_mesure, dict_meteo):
     df_meteo_periode = df_meteo.loc[mask]
     return df_meteo_periode['et0_fao_evapotranspiration'].sum()
     
-def Maizy(ligne_mesure):
-    
-    #Instanciation des facteurs Maizy
-    A = [0.040108, 0.040146, 0.040172]
-    A.append(np.mean(A))
-    B = [-26.240, -29.108, -31.951]
-    B.append(np.mean(B))
-
-    # calcul des facteurs a et b
-    a = A[ligne_mesure['precocite']]
-    b = B[ligne_mesure['precocite']]
-
-    # Retourner le Maizy pour la ligne_mesure donnée
-    return a*ligne_mesure['djc']+b
-
-'''
-def NDVI (ligne_mesure, dict_cubesZarrs):
-    
-    #Récupération du cube zarr associé à la parcelle
-    parcel_id = ligne_mesure['parcel_id']
-    cube = dict_cubesZarrs[parcel_id]
-    print(parcel_id)
-
-    lat_mesure = ligne_mesure['lat'] 
-    long_mesure = ligne_mesure['lon']
-
-    date_cible = ligne_mesure['date']
-    dates_dispo = cube.list_of_dates()
-
-    print(date_cible)
-
-    date_A   # La plus proche avant
-    date_B   # La plus proche après
-    
-    # calcul des ndvi aux bornes
-    ndvi_A = cube.ndvi(date_A, lat_mesure, long_mesure)
-    ndvi_B = cube.ndvi(date_B, lat_mesure, long_mesure)
-
-    if date_A == date_B:
-        ndvi_interpole = ndvi_A
-    else:
-        # Interpolation linéaire pondérée par le temps calendaire
-        jours_ecart_cible = (date_cible - date_A).days
-        jours_totaux_intervalle = (date_B - date_A).days
-        ndvi_interpole = ndvi_A + jours_ecart_cible * (ndvi_B - ndvi_A) / (jours_totaux_intervalle)
-    
-    return ndvi_interpole
-'''
 
     
 
